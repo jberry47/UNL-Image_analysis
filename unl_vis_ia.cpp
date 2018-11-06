@@ -508,6 +508,10 @@ int main(int argc, char** argv){
 		cout << "\t\e[1mHYPER\e[0m - Segment plant into total, stem and leaves then measure hyperspectral data with masks" << endl << "\t" << "Example: ./PhenotyperCV HYPER hyperspectral_dir/ hyper_shapes.txt hyper_color.txt"<< endl<<endl;
 		cout << "\t\e[1mHYPER_DEBUG\e[0m - Same as HYPER but will output the masks in the same directory" << endl << "\t" << "Example: ./PhenotyperCV HYPER_DEBUG hyperspectral_dir/ hyper_shapes.txt hyper_color.txt"<< endl<<endl;
 		cout << "\t\e[1mAVG_IMGS\e[0m - takes list of input images to be averaged and outputs average_images.png" << endl << "\t" << "Example: cat Images/SnapshotInfo.csv | grep Fm000Z | grep VIS_SV | awk -F'[;,]' '{print \"Images/snapshot\"$2\"/\"$12\".png\"}' | ./PhenotyperCV AVG_IMGS"<< endl << endl;
+		cout << "PARALLELIZATION:" << endl;
+		cout << "\tHyperspectral:\n\techo Images/*/Hyp_SV_90/ | sed 's/ /\\n/g' | grep -v \"Empty\" | xargs -I{} -P8 ./PhenotyperCV HYPER_DEBUG {} hyper_shapes_local_11-5.txt hyper_color_local_11-5.txt" << endl;
+		cout << "\tVIS:\n\tfind Images/ -name \"*.png\" | grep Vis_SV | xargs -I{} -P8 ./UNL_VIS_IA VIS_DEBUG {} shapes.txt color.txt" << endl;
+
 	}
 	else{
 		cout << "First argument must be either VIS, VIS_DEBUG, HYPER, HYPER_DEBUG or AVG_IMGS" << endl;
