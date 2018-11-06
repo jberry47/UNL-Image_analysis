@@ -499,13 +499,15 @@ int main(int argc, char** argv){
 			}
 	}
 	else if(mode == "-h" || mode == "--help"){
-		cout << "Description:" << endl << "This program is for segmenting and measuring plants from the phenotyping facility in University of Lincoln - Nebraska" << endl << endl;
-		cout << "Usage:" << endl << "There are five modes of use (VIS, VIS_DEBUG, HYPER, NIR, and AVG_IMGS). Depending on what is chosen, the required inputs change" << endl;
-		cout << "1) VIS - Segment and measure plant in RGB images" << endl << "\t" << "Example: ./PhenotyperCV VIS input_image.png  shapes.txt color.txt"<<endl;
-		cout << "2) VIS_DEBUG - Same as VIS but will output the mask in the same directory as image" << endl << "\t" << "Example: ./PhenotyperCV VIS_DEBUG input_image.png  shapes.txt color.txt"<<endl;
-		cout << "3) HYPER - Segment plant into total, stem and leaves then measure hyperspectral data with masks" << endl << "\t" << "Example: ./PhenotyperCV HYPER hyperspectral_dir/  hyper.txt"<<endl;
-		cout << "4) HYPER_DEBUG - Same as HYPER but will output the masks in the same directory as image" << endl << "\t" << "Example: ./PhenotyperCV HYPER_DEBUG hyperspectral_dir/  hyper_shapes.txt hyper_color.txt"<<endl;
-		cout << "5) AVG_IMGS - takes list of input images to be averaged and outputs average_images.png" << endl << "\t" << "Example: cat Images/SnapshotInfo.csv | grep Fm000Z | grep VIS_SV | awk -F'[;,]' '{print \"Images/snapshot\"$2\"/\"$12\".png\"}' | ./PhenotyperCV AVG_IMGS"<< endl << endl;
+		cout << "DESCRIPTION:" << endl << "\tThis program is for segmenting and measuring plants from the phenotyping facility in University of Nebraska - Lincoln" << endl << endl;
+		cout << "USAGE:" << endl << "\tThere are five modes of use (VIS, VIS_DEBUG, HYPER, NIR, and AVG_IMGS). Depending on what is chosen, the required inputs change" << endl << endl;
+		cout << "SYNOPSIS:" << endl << "\t./PhenotyperCV [MODE] [INPUTS]" << endl << endl;
+		cout << "MODES:"<< endl;
+		cout << "\t\e[1mVIS\e[0m - Segment and measure plant in RGB images" << endl << "\t" << "Example: ./PhenotyperCV VIS input_image.png shapes.txt color.txt"<< endl<<endl;
+		cout << "\t\e[1mVIS_DEBUG\e[0m - Same as VIS but will output the mask in the same directory as the input image" << endl << "\t" << "Example: ./PhenotyperCV VIS_DEBUG input_image.png shapes.txt color.txt"<< endl<<endl;
+		cout << "\t\e[1mHYPER\e[0m - Segment plant into total, stem and leaves then measure hyperspectral data with masks" << endl << "\t" << "Example: ./PhenotyperCV HYPER hyperspectral_dir/ hyper_shapes.txt hyper_color.txt"<< endl<<endl;
+		cout << "\t\e[1mHYPER_DEBUG\e[0m - Same as HYPER but will output the masks in the same directory" << endl << "\t" << "Example: ./PhenotyperCV HYPER_DEBUG hyperspectral_dir/ hyper_shapes.txt hyper_color.txt"<< endl<<endl;
+		cout << "\t\e[1mAVG_IMGS\e[0m - takes list of input images to be averaged and outputs average_images.png" << endl << "\t" << "Example: cat Images/SnapshotInfo.csv | grep Fm000Z | grep VIS_SV | awk -F'[;,]' '{print \"Images/snapshot\"$2\"/\"$12\".png\"}' | ./PhenotyperCV AVG_IMGS"<< endl << endl;
 	}
 	else{
 		cout << "First argument must be either VIS, VIS_DEBUG, HYPER, HYPER_DEBUG or AVG_IMGS" << endl;
