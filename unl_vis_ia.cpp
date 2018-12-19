@@ -242,12 +242,12 @@ int main(int argc, char** argv){
 		}
 		else{
 			Mat inputImage = imread(argv[2]);
-			Mat adjImage;
-	    	cvtColor(inputImage, adjImage, CV_BGRA2BGR);
+			Mat adjImage1;
+	    	cvtColor(inputImage, adjImage1, CV_BGRA2BGR);
 
 	    	//-- Thresholding b from Lab
 			Mat lab;
-			cvtColor(adjImage, lab, CV_BGR2Lab);
+			cvtColor(adjImage1, lab, CV_BGR2Lab);
 	    	vector<Mat> split_lab;
 	    	split(lab, split_lab);
 	    	Mat b_thresh;
@@ -256,7 +256,7 @@ int main(int argc, char** argv){
 
 	    	//-- Thresholding s from HSV
 			Mat hsv;
-			cvtColor(adjImage, hsv, CV_BGR2HSV);
+			cvtColor(adjImage1, hsv, CV_BGR2HSV);
 	    	vector<Mat> split_hsv;
 	    	split(hsv, split_hsv);
 	    	Mat s_thresh;
@@ -286,7 +286,7 @@ int main(int argc, char** argv){
 
 	    	//-- Getting numerical data
 	    	vector<double> shapes_data = get_shapes(cc,mask);
-	    	Mat hue_data = get_color(adjImage, mask);
+	    	Mat hue_data = get_color(adjImage1, mask);
 
 		    //-- Write shapes to file
 	    	string name_shape= string(argv[3]);
