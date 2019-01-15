@@ -461,7 +461,7 @@ int main(int argc, char** argv){
 					  	ss << i;
 					   	string str = ss.str();
 					   	Mat in_image;
-						in_image = imread(line+str+"_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
+						in_image = imread(line+str+"_0_0.png",IMREAD_GRAYSCALE);
 					   	Mat hyper_data_total = get_gray(in_image, kept_mask_hyp_total);
 					   	Mat hyper_data_stem = get_gray(in_image, kept_mask_hyp_stem);
 					   	Mat hyper_data_leaves = get_gray(in_image, kept_mask_hyp_leaves);
