@@ -421,10 +421,22 @@ int main(int argc, char** argv){
 					threshold(kept_mask_hyp_leaves1,kept_mask_hyp_leaves,0,255,0);
 					imwrite("kept_mask_hyp_total3.png",kept_mask_hyp_total);
 
+					if(bool_hyperD){
+						string new_name;
+						new_name = line+"total_mask.png";
+						imwrite(new_name,kept_mask_hyp_total);
+						new_name = line+"stem_mask.png";
+						imwrite(new_name,kept_mask_hyp_stem);
+						new_name = line+"leaves_mask.png";
+						imwrite(new_name,kept_mask_hyp_leaves);
+					}
+
 					//-- Getting and writing shapes data
 					vector<double> shapes_total = get_shapes(cc_total,kept_mask_hyp_total);
 					vector<double> shapes_stem = get_shapes(cc_stem,kept_mask_hyp_stem);
 					vector<double> shapes_leaves = get_shapes(cc_leaves,kept_mask_hyp_leaves);
+
+					imwrite("kept_mask_hyp_total4.png",kept_mask_hyp_total);
 
 					string name_shape= string(argv[3]);
 					ofstream shape_file;
@@ -457,16 +469,6 @@ int main(int argc, char** argv){
 					}
 					shape_file << endl;
 					shape_file.close();
-
-					if(bool_hyperD){
-		   				string new_name;
-		   				new_name = line+"total_mask.png";
-		   				imwrite(new_name,kept_mask_hyp_total);
-		   				new_name = line+"stem_mask.png";
-		   				imwrite(new_name,kept_mask_hyp_stem);
-		   				new_name = line+"leaves_mask.png";
-		   				imwrite(new_name,kept_mask_hyp_leaves);
-					}
 
 					//-- Looping over all the wavelengths and writing out histogram
 					string name_hyper_color= string(argv[4]);
