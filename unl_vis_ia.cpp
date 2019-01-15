@@ -420,9 +420,9 @@ int main(int argc, char** argv){
 
 					//-- Getting and writing shapes data
 					Mat total_temp, stem_temp, leaves_temp;
-					total_temp = kept_mask_hyp_total;
-					stem_temp = kept_mask_hyp_stem;
-					leaves_temp = kept_mask_hyp_leaves;
+					total_temp = kept_mask_hyp_total.clone();
+					stem_temp = kept_mask_hyp_stem.clone();
+					leaves_temp = kept_mask_hyp_leaves.clone();
 					vector<double> shapes_total = get_shapes(cc_total,total_temp);
 					vector<double> shapes_stem = get_shapes(cc_stem,stem_temp);
 					vector<double> shapes_leaves = get_shapes(cc_leaves,leaves_temp);
