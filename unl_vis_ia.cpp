@@ -383,7 +383,6 @@ int main(int argc, char** argv){
 					Mat mask_total;
 					img = ((m750+1)-(m705+1))/((m750+1)+(m705+1));
 					inRange(img,0.18,1.5,mask_total);
-					imwrite("After_first_inrange.png",mask_total);
 
 					Mat m57 = imread(line+"57_0_0.png");
 					m57.convertTo(m57, cv::COLOR_BGRA2GRAY);
@@ -394,7 +393,7 @@ int main(int argc, char** argv){
 					Mat mask_total1 = mask_total - pot_mask;
 					Mat mask_total2;
 					threshold(mask_total1,mask_total2,0,255,0);
-
+					imwrite("mask_total2.png",mask_total2);
 					Mat kept_mask_hyp_total;
 					vector<Point> cc_total = keep_roi(mask_total2,Point(55,123),Point(270,357),kept_mask_hyp_total);
 
