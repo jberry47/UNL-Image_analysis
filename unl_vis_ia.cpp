@@ -363,16 +363,19 @@ int main(int argc, char** argv){
 				string name_hyper_fail= "failed_images.txt";
 				ofstream hyper_file_fail;
 				string line = argv[2];
-				cout << line << endl;
 				try{
 					//-- Getting important images
-					Mat m705 = imread(line+"35_0_0.png",IMREAD_GRAYSCALE);
+					Mat m705 = imread(line+"35_0_0.png");
+					m705.convertTo(m705, cv::COLOR_BGRA2GRAY);
 					m705.convertTo(m705, CV_64F);
-					Mat m750 = imread(line+"45_0_0.png",IMREAD_GRAYSCALE);
+					Mat m750 = imread(line+"45_0_0.png");
+					m750.convertTo(m750, cv::COLOR_BGRA2GRAY);
 					m750.convertTo(m750, CV_64F);
-					Mat m1056 = imread(line+"108_0_0.png",IMREAD_GRAYSCALE);
+					Mat m1056 = imread(line+"108_0_0.png");
+					m1056.convertTo(m1056, cv::COLOR_BGRA2GRAY);
 					m1056.convertTo(m1056, CV_64F);
-					Mat m1151 = imread(line+"128_0_0.png",IMREAD_GRAYSCALE);
+					Mat m1151 = imread(line+"128_0_0.png");
+					m1151.convertTo(m1151, cv::COLOR_BGRA2GRAY);
 					m1151.convertTo(m1151, CV_64F);
 
 					Mat img;
