@@ -392,7 +392,7 @@ int main(int argc, char** argv){
 					bitwise_and(m57_thresh,mask_total,pot_mask);
 					Mat mask_total1 = mask_total - pot_mask;
 					Mat mask_total2;
-					threshold(mask_total1, mask_total2, 1, 255,1);
+					threshold(mask_total1, mask_total2, 1, 255,0);
 					Mat kept_mask_hyp_total;
 					vector<Point> cc_total = keep_roi(mask_total2,Point(55,123),Point(270,357),kept_mask_hyp_total);
 
