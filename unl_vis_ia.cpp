@@ -508,8 +508,6 @@ int main(int argc, char** argv){
 						new_name = line+"leaves_mask.png";
 						imwrite(new_name,kept_mask_hyp_leaves);
 					}
-
-
 				}
 				catch (Exception& e) {
 					hyper_file_fail.open(name_hyper_fail.c_str(),ios_base::app);
@@ -521,7 +519,7 @@ int main(int argc, char** argv){
 	}
 	else if(mode == "-h" || mode == "--help"){
 		cout << "DESCRIPTION:" << endl << "\tThis program is for segmenting and measuring plants from the phenotyping facility in University of Nebraska - Lincoln" << endl << endl;
-		cout << "USAGE:" << endl << "\tThere are five modes of use (VIS, VIS_DEBUG, HYPER, NIR, and AVG_IMGS). Depending on what is chosen, the required inputs change" << endl << endl;
+		cout << "USAGE:" << endl << "\tThere are five modes of use (VIS, VIS_DEBUG, HYPER, HYPER_DEBUG, and AVG_IMGS). Depending on what is chosen, the required inputs change" << endl << endl;
 		cout << "SYNOPSIS:" << endl << "\t./PhenotyperCV [MODE] [INPUTS]" << endl << endl;
 		cout << "MODES:"<< endl;
 		cout << "\t\e[1mVIS\e[0m - Segment and measure plant in RGB images" << endl << "\t" << "Example: ./PhenotyperCV VIS input_image.png shapes.txt color.txt"<< endl<<endl;
