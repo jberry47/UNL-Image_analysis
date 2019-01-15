@@ -1,13 +1,10 @@
 #include <opencv2/opencv.hpp>
-//#include <opencv/cv.h>
 //#include <highgui.h>
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
 #include <string>
 #include <math.h>
-#include <opencv2/features2d.hpp>
-#include <opencv2/imgcodecs.hpp>
 #include <Eigen/Dense>
 
 using namespace cv;
