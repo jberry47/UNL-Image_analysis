@@ -383,6 +383,7 @@ int main(int argc, char** argv){
 					Mat mask_total;
 					img = ((m750+1)-(m705+1))/((m750+1)+(m705+1));
 					inRange(img,0.18,1.5,mask_total);
+					imwrite("After_first_inrange.png",mask_total);
 
 					Mat m57 = imread(line+"57_0_0.png");
 					m57.convertTo(m57, cv::COLOR_BGRA2GRAY);
@@ -401,8 +402,10 @@ int main(int argc, char** argv){
 					Mat mask_stem;
 					img = (m1056+1)/(m1151+1);
 					inRange(img,1.1,5,mask_stem);
+					Mat mask_stem2;
+					threshold(mask_stem,mask_stem2,0,255,0);
 					Mat stem_and;
-					bitwise_and(kept_mask_hyp_total,mask_stem,stem_and);
+					bitwise_and(kept_mask_hyp_total,mask_stem2,stem_and);
 					Mat kept_mask_hyp_stem;
 					vector<Point> cc_stem = keep_roi(stem_and,Point(55,123),Point(270,357),kept_mask_hyp_stem);
 
