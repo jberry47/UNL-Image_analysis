@@ -382,12 +382,12 @@ int main(int argc, char** argv){
 					//-- Threshold and ROI for whole plant
 					Mat mask_total;
 					img = ((m750+1)-(m705+1))/((m750+1)+(m705+1));
-					inRange(img,0.18,1.5,mask_total);
+					inRange(img,Scalar(0.18),Scalar(1.5),mask_total);
 
 					Mat m57 = imread(line+"57_0_0.png");
 					m57.convertTo(m57, cv::COLOR_BGRA2GRAY);
 					Mat m57_thresh;
-					inRange(m57,0,55,m57_thresh);
+					inRange(m57,Scalar(0),Scalar(55),m57_thresh);
 					Mat pot_mask;
 					bitwise_and(m57_thresh,mask_total,pot_mask);
 					Mat mask_total1 = mask_total - pot_mask;
@@ -397,7 +397,7 @@ int main(int argc, char** argv){
 					//-- Threshold and ROI for stem
 					Mat mask_stem;
 					img = (m1056+1)/(m1151+1);
-					inRange(img,1.1,5,mask_stem);
+					inRange(img,Scalar(1.1),Scalar(5),mask_stem);
 					Mat stem_and;
 					bitwise_and(kept_mask_hyp_total,mask_stem,stem_and);
 					Mat kept_mask_hyp_stem;
