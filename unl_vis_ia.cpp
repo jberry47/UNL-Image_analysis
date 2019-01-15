@@ -366,13 +366,13 @@ int main(int argc, char** argv){
 				cout << line << endl;
 				try{
 					//-- Getting important images
-					Mat m705 = imread(line+"35_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
+					Mat m705 = imread(line+"35_0_0.png",IMREAD_GRAYSCALE);
 					m705.convertTo(m705, CV_64F);
-					Mat m750 = imread(line+"45_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
+					Mat m750 = imread(line+"45_0_0.png",IMREAD_GRAYSCALE);
 					m750.convertTo(m750, CV_64F);
-					Mat m1056 = imread(line+"108_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
+					Mat m1056 = imread(line+"108_0_0.png",IMREAD_GRAYSCALE);
 					m1056.convertTo(m1056, CV_64F);
-					Mat m1151 = imread(line+"128_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
+					Mat m1151 = imread(line+"128_0_0.png",IMREAD_GRAYSCALE);
 					m1151.convertTo(m1151, CV_64F);
 
 					Mat img;
