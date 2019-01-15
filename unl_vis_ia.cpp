@@ -379,10 +379,10 @@ int main(int argc, char** argv){
 					m1151.convertTo(m1151, CV_64F);
 
 					Mat img;
-					img.convertTo(img, CV_64F);
 					//-- Threshold and ROI for whole plant
 					Mat mask_total;
 					img = ((m750+1)-(m705+1))/((m750+1)+(m705+1));
+					img.convertTo(img, CV_64F);
 					inRange(img,Scalar(0.18),Scalar(1.5),mask_total);
 
 					Mat m57 = imread(line+"57_0_0.png");
