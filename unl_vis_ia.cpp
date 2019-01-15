@@ -427,18 +427,6 @@ int main(int argc, char** argv){
 					vector<double> shapes_stem = get_shapes(cc_stem,stem_temp);
 					vector<double> shapes_leaves = get_shapes(cc_leaves,leaves_temp);
 
-					if(bool_hyperD){
-											string new_name;
-											new_name = line+"total_mask.png";
-											imwrite(new_name,kept_mask_hyp_total);
-											new_name = line+"stem_mask.png";
-											imwrite(new_name,kept_mask_hyp_stem);
-											new_name = line+"leaves_mask.png";
-											imwrite(new_name,kept_mask_hyp_leaves);
-										}
-
-					imwrite("kept_mask_hyp_total1.png",kept_mask_hyp_total);
-
 					string name_shape= string(argv[3]);
 					ofstream shape_file;
 					shape_file.open(name_shape.c_str(),ios_base::app);
@@ -475,9 +463,9 @@ int main(int argc, char** argv){
 					string name_hyper_color= string(argv[4]);
 					ofstream hyper_file_color;
 					hyper_file_color.open(name_hyper_color.c_str(),ios_base::app);
-					total_temp = kept_mask_hyp_total;
-					stem_temp = kept_mask_hyp_stem;
-					leaves_temp = kept_mask_hyp_leaves;
+					total_temp = kept_mask_hyp_total.clone();
+					stem_temp = kept_mask_hyp_stem.clone();
+					leaves_temp = kept_mask_hyp_leaves.clone();
 					for(int i=2;i<245;i++){
 						stringstream ss;
 					  	ss << i;
@@ -510,6 +498,16 @@ int main(int argc, char** argv){
 						hyper_file_color << endl;
 					}
 					hyper_file_color.close();
+
+					if(bool_hyperD){
+						string new_name;
+						new_name = line+"total_mask.png";
+						imwrite(new_name,kept_mask_hyp_total);
+						new_name = line+"stem_mask.png";
+						imwrite(new_name,kept_mask_hyp_stem);
+						new_name = line+"leaves_mask.png";
+						imwrite(new_name,kept_mask_hyp_leaves);
+					}
 
 
 				}
