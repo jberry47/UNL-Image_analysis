@@ -1,5 +1,5 @@
 #include <opencv2/opencv.hpp>
-#include <opencv/cv.h>
+//#include <opencv/cv.h>
 //#include <highgui.h>
 #include <iostream>
 #include <fstream>
@@ -7,11 +7,13 @@
 #include <string>
 #include <math.h>
 #include <opencv2/features2d.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <Eigen/Dense>
 
 using namespace cv;
 using namespace std;
 using namespace Eigen;
+
 
 int is_oof(Mat img){
 	//-- Get contours of mask
@@ -47,7 +49,7 @@ vector<Point> keep_roi(Mat img,Point tl, Point br, Mat &mask){
 
     //-- Get contours of rectangular roi
     Mat src = Mat::zeros(img.size(),img.type());
-    rectangle(src,tl,br,255,CV_FILLED);
+    rectangle(src,tl,br,255,cv::FILLED);
 
     vector<vector<Point> > contours_roi;
     vector<Vec4i> hierarchy_roi;
@@ -63,7 +65,7 @@ vector<Point> keep_roi(Mat img,Point tl, Point br, Mat &mask){
       			for(unsigned int k=0; k<contours[i].size(); k++){
       				cc.push_back(contours[i][k]);
       			}
-      			drawContours(kept, contours, i, 255, CV_FILLED);
+      			drawContours(kept, contours, i, 255, cv::FILLED);
       			break;
       		}
        	}
@@ -243,11 +245,11 @@ int main(int argc, char** argv){
 		else{
 			Mat inputImage = imread(argv[2]);
 			Mat adjImage1;
-	    	cvtColor(inputImage, adjImage1, CV_BGRA2BGR);
+	    	cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
 
 	    	//-- Thresholding b from Lab
 			Mat lab;
-			cvtColor(adjImage1, lab, CV_BGR2Lab);
+			cvtColor(adjImage1, lab, cv::COLOR_BGR2Lab);
 	    	vector<Mat> split_lab;
 	    	split(lab, split_lab);
 	    	Mat b_thresh;
@@ -256,7 +258,7 @@ int main(int argc, char** argv){
 
 	    	//-- Thresholding s from HSV
 			Mat hsv;
-			cvtColor(adjImage1, hsv, CV_BGR2HSV);
+			cvtColor(adjImage1, hsv, cv::COLOR_BGR2HSV);
 	    	vector<Mat> split_hsv;
 	    	split(hsv, split_hsv);
 	    	Mat s_thresh;
@@ -329,13 +331,13 @@ int main(int argc, char** argv){
 						if(getline(cin,line)) {
 							if(counter == 0){
 					    		avg=imread(line);
-						    	cvtColor(avg, adjImage1, CV_BGRA2BGR);
+						    	cvtColor(avg, adjImage1, cv::COLOR_BGRA2BGR);
 						    	adjImage1.convertTo(adjImage1, CV_64F);
 					   			split(adjImage1,avg_bgr);
 					    		counter++;
 					    	}else{
 					        	Mat inputImage = imread(line);
-						    	cvtColor(inputImage, adjImage1, CV_BGRA2BGR);
+						    	cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
 						    	adjImage1.convertTo(adjImage1, CV_64F);
 					    		vector<Mat> in_bgr(3);
 				    			split(adjImage1,in_bgr);
@@ -367,13 +369,13 @@ int main(int argc, char** argv){
 				cout << line << endl;
 				try{
 					//-- Getting important images
-					Mat m705 = imread(line+"35_0_0.png",CV_LOAD_IMAGE_GRAYSCALE);
+					Mat m705 = imread(line+"35_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
 					m705.convertTo(m705, CV_64F);
-					Mat m750 = imread(line+"45_0_0.png",CV_LOAD_IMAGE_GRAYSCALE);
+					Mat m750 = imread(line+"45_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
 					m750.convertTo(m750, CV_64F);
-					Mat m1056 = imread(line+"108_0_0.png",CV_LOAD_IMAGE_GRAYSCALE);
+					Mat m1056 = imread(line+"108_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
 					m1056.convertTo(m1056, CV_64F);
-					Mat m1151 = imread(line+"128_0_0.png",CV_LOAD_IMAGE_GRAYSCALE);
+					Mat m1151 = imread(line+"128_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
 					m1151.convertTo(m1151, CV_64F);
 
 					Mat img;
@@ -383,7 +385,7 @@ int main(int argc, char** argv){
 					inRange(img,0.18,1.5,mask_total);
 
 					Mat m57 = imread(line+"57_0_0.png");
-					m57.convertTo(m57, CV_BGR2GRAY);
+					m57.convertTo(m57, cv::COLOR_BGRA2GRAY);
 					Mat m57_thresh;
 					inRange(m57,0,55,m57_thresh);
 					Mat pot_mask;
@@ -462,7 +464,7 @@ int main(int argc, char** argv){
 					  	ss << i;
 					   	string str = ss.str();
 					   	Mat in_image;
-						in_image = imread(line+str+"_0_0.png",CV_LOAD_IMAGE_GRAYSCALE);
+						in_image = imread(line+str+"_0_0.png",cv::ImreadModes::IMREAD_GRAYSCALE);
 					   	Mat hyper_data_total = get_gray(in_image, kept_mask_hyp_total);
 					   	Mat hyper_data_stem = get_gray(in_image, kept_mask_hyp_stem);
 					   	Mat hyper_data_leaves = get_gray(in_image, kept_mask_hyp_leaves);
