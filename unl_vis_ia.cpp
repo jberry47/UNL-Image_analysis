@@ -131,9 +131,9 @@ float get_fd(Mat mask){
 	return average;
 }
 
-vector<double> get_shapes(vector<Point> cc,Mat mask){
+vector<double> get_shapes(vector<Point> cc,Mat mask1){
     //-- Get measurements
-    Moments mom = moments(mask,true);
+    Moments mom = moments(mask1,true);
     double area = mom.m00;
     vector<Point>hull;
     convexHull( Mat(cc), hull, false );
@@ -173,8 +173,8 @@ vector<double> get_shapes(vector<Point> cc,Mat mask){
    	    round = eminor/emajor;
    	    ar = emajor/eminor;
     }
-    float fd = get_fd(mask);
-    double oof = is_oof(mask);
+    float fd = get_fd(mask1);
+    double oof = is_oof(mask1);
     double shapes[20] = {area,hull_area,solidity,perimeter,width,height,cmx,cmy,hull_verticies,ex,ey,emajor,eminor,angle,eccen,circ,round,ar,fd,oof};
     vector<double> shapes_v(shapes,shapes+20);
     return shapes_v;
