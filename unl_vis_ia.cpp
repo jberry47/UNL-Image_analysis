@@ -397,7 +397,6 @@ int main(int argc, char** argv){
 					vector<Point> cc_total = keep_roi(mask_total2,Point(55,123),Point(270,357),kept_mask_hyp_total1);
 					Mat kept_mask_hyp_total;
 					threshold(kept_mask_hyp_total1,kept_mask_hyp_total,0,255,0);
-					imwrite("kept_mask_hyp_total1.png",kept_mask_hyp_total);
 
 					//-- Threshold and ROI for stem
 					Mat mask_stem;
@@ -411,7 +410,6 @@ int main(int argc, char** argv){
 					vector<Point> cc_stem = keep_roi(stem_and,Point(55,123),Point(270,357),kept_mask_hyp_stem1);
 					Mat kept_mask_hyp_stem;
 					threshold(kept_mask_hyp_stem1,kept_mask_hyp_stem,0,255,0);
-					imwrite("kept_mask_hyp_total2.png",kept_mask_hyp_total);
 
 					//-- Threshold and ROI for leaves
 					Mat mask_leaves = kept_mask_hyp_total-kept_mask_hyp_stem;
@@ -419,24 +417,17 @@ int main(int argc, char** argv){
 					vector<Point> cc_leaves = keep_roi(mask_leaves,Point(55,123),Point(270,357),kept_mask_hyp_leaves1);
 					Mat kept_mask_hyp_leaves;
 					threshold(kept_mask_hyp_leaves1,kept_mask_hyp_leaves,0,255,0);
-					imwrite("kept_mask_hyp_total3.png",kept_mask_hyp_total);
-
-					if(bool_hyperD){
-						string new_name;
-						new_name = line+"total_mask.png";
-						imwrite(new_name,kept_mask_hyp_total);
-						new_name = line+"stem_mask.png";
-						imwrite(new_name,kept_mask_hyp_stem);
-						new_name = line+"leaves_mask.png";
-						imwrite(new_name,kept_mask_hyp_leaves);
-					}
 
 					//-- Getting and writing shapes data
-					vector<double> shapes_total = get_shapes(cc_total,kept_mask_hyp_total);
-					vector<double> shapes_stem = get_shapes(cc_stem,kept_mask_hyp_stem);
-					vector<double> shapes_leaves = get_shapes(cc_leaves,kept_mask_hyp_leaves);
+					Mat total_temp, stem_temp, leaves_temp;
+					total_temp = kept_mask_hyp_total;
+					stem_temp = kept_mask_hyp_stem;
+					leaves_temp = kept_mask_hyp_leaves;
+					vector<double> shapes_total = get_shapes(cc_total,total_temp);
+					vector<double> shapes_stem = get_shapes(cc_stem,stem_temp);
+					vector<double> shapes_leaves = get_shapes(cc_leaves,leaves_temp);
 
-					imwrite("kept_mask_hyp_total4.png",kept_mask_hyp_total);
+					imwrite("kept_mask_hyp_total1.png",kept_mask_hyp_total);
 
 					string name_shape= string(argv[3]);
 					ofstream shape_file;
@@ -506,6 +497,16 @@ int main(int argc, char** argv){
 						hyper_file_color << endl;
 					}
 					hyper_file_color.close();
+
+					if(bool_hyperD){
+						string new_name;
+						new_name = line+"total_mask.png";
+						imwrite(new_name,kept_mask_hyp_total);
+						new_name = line+"stem_mask.png";
+						imwrite(new_name,kept_mask_hyp_stem);
+						new_name = line+"leaves_mask.png";
+						imwrite(new_name,kept_mask_hyp_leaves);
+					}
 				}
 				catch (Exception& e) {
 					hyper_file_fail.open(name_hyper_fail.c_str(),ios_base::app);
