@@ -62,7 +62,7 @@ vector<Point> keep_roi(Mat img,Point tl, Point br, Mat &mask){
       			for(unsigned int k=0; k<contours[i].size(); k++){
       				cc.push_back(contours[i][k]);
       			}
-      			drawContours(kept, contours, i, 255, cv::FILLED);
+      			drawContours(kept, contours, i, 25500, cv::FILLED);
       			break;
       		}
        	}
