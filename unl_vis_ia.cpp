@@ -427,6 +427,16 @@ int main(int argc, char** argv){
 					vector<double> shapes_stem = get_shapes(cc_stem,stem_temp);
 					vector<double> shapes_leaves = get_shapes(cc_leaves,leaves_temp);
 
+					if(bool_hyperD){
+											string new_name;
+											new_name = line+"total_mask.png";
+											imwrite(new_name,kept_mask_hyp_total);
+											new_name = line+"stem_mask.png";
+											imwrite(new_name,kept_mask_hyp_stem);
+											new_name = line+"leaves_mask.png";
+											imwrite(new_name,kept_mask_hyp_leaves);
+										}
+
 					imwrite("kept_mask_hyp_total1.png",kept_mask_hyp_total);
 
 					string name_shape= string(argv[3]);
@@ -501,15 +511,7 @@ int main(int argc, char** argv){
 					}
 					hyper_file_color.close();
 
-					if(bool_hyperD){
-						string new_name;
-						new_name = line+"total_mask.png";
-						imwrite(new_name,kept_mask_hyp_total);
-						new_name = line+"stem_mask.png";
-						imwrite(new_name,kept_mask_hyp_stem);
-						new_name = line+"leaves_mask.png";
-						imwrite(new_name,kept_mask_hyp_leaves);
-					}
+
 				}
 				catch (Exception& e) {
 					hyper_file_fail.open(name_hyper_fail.c_str(),ios_base::app);
