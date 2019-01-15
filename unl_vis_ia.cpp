@@ -407,13 +407,18 @@ int main(int argc, char** argv){
 					threshold(mask_stem,mask_stem2,0,255,0);
 					Mat stem_and;
 					bitwise_and(kept_mask_hyp_total,mask_stem2,stem_and);
+					Mat kept_mask_hyp_stem1;
+					vector<Point> cc_stem = keep_roi(stem_and,Point(55,123),Point(270,357),kept_mask_hyp_stem1);
 					Mat kept_mask_hyp_stem;
-					vector<Point> cc_stem = keep_roi(stem_and,Point(55,123),Point(270,357),kept_mask_hyp_stem);
+					threshold(kept_mask_hyp_stem1,kept_mask_hyp_stem,0,255,0);
+
 
 					//-- Threshold and ROI for leaves
 					Mat mask_leaves = kept_mask_hyp_total-kept_mask_hyp_stem;
+					Mat kept_mask_hyp_leaves1;
+					vector<Point> cc_leaves = keep_roi(mask_leaves,Point(55,123),Point(270,357),kept_mask_hyp_leaves1);
 					Mat kept_mask_hyp_leaves;
-					vector<Point> cc_leaves = keep_roi(mask_leaves,Point(55,123),Point(270,357),kept_mask_hyp_leaves);
+					threshold(kept_mask_hyp_leaves1,kept_mask_hyp_leaves,0,255,0);
 
 					//-- Getting and writing shapes data
 					vector<double> shapes_total = get_shapes(cc_total,kept_mask_hyp_total);
