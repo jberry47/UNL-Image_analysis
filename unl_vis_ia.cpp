@@ -465,15 +465,18 @@ int main(int argc, char** argv){
 					string name_hyper_color= string(argv[4]);
 					ofstream hyper_file_color;
 					hyper_file_color.open(name_hyper_color.c_str(),ios_base::app);
+					total_temp = kept_mask_hyp_total;
+					stem_temp = kept_mask_hyp_stem;
+					leaves_temp = kept_mask_hyp_leaves;
 					for(int i=2;i<245;i++){
 						stringstream ss;
 					  	ss << i;
 					   	string str = ss.str();
 					   	Mat in_image;
 						in_image = imread(line+str+"_0_0.png",IMREAD_GRAYSCALE);
-					   	Mat hyper_data_total = get_gray(in_image, kept_mask_hyp_total);
-					   	Mat hyper_data_stem = get_gray(in_image, kept_mask_hyp_stem);
-					   	Mat hyper_data_leaves = get_gray(in_image, kept_mask_hyp_leaves);
+					   	Mat hyper_data_total = get_gray(in_image, total_temp);
+					   	Mat hyper_data_stem = get_gray(in_image, stem_temp);
+					   	Mat hyper_data_leaves = get_gray(in_image, leaves_temp);
 
 					  	//-- Write total plant histogram
 					   	hyper_file_color << line+str+"_0_0.png" << " total ";
