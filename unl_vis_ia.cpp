@@ -244,7 +244,6 @@ int main(int argc, char** argv){
 	    	imwrite("inputImage.png",inputImage);
 			Mat adjImage1 = inputImage.clone();
 	    	//cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
-	    	imwrite("adjImage1.png",adjImage1);
 	    	//-- Thresholding b from Lab
 			Mat lab;
 			cvtColor(adjImage1, lab, cv::COLOR_BGR2Lab);
@@ -254,7 +253,6 @@ int main(int argc, char** argv){
 	    	inRange(split_lab[2],0,143,b_thresh);
 	    	imwrite("thresh_b.png",b_thresh);
 	    	Mat mask_b =  cv::Scalar::all(255) - b_thresh;
-	    	imwrite("mask_b.png",mask_b);
 
 	    	//-- Thresholding s from HSV
 			Mat hsv;
@@ -264,7 +262,6 @@ int main(int argc, char** argv){
 	    	Mat s_thresh;
 	    	inRange(split_hsv[1],0,65,s_thresh);
 	    	Mat mask_s =  cv::Scalar::all(255) - s_thresh;
-	    	imwrite("mask_s.png",mask_s);
 
 	    	//-- joining mask_b with mask_s and closing
 	    	Mat mask_and;
@@ -273,12 +270,13 @@ int main(int argc, char** argv){
 	    	dilate(mask_and, mask_dilate, Mat(), Point(-1, -1), 3, 1, 1);
 	    	Mat mask_erode;
 	    	erode(mask_dilate,mask_erode, Mat(), Point(-1, -1), 3, 1, 1);
-			imwrite("mask_erode.png",mask_erode);
 
 		    //-- ROI selector
-	    	Mat mask;
-	    	vector<Point> cc = keep_roi(mask_erode,Point(507,270),Point(2181,1731),mask);
-			imwrite("after_keeproi.png",mask);
+	    	Mat mask1;
+	    	vector<Point> cc = keep_roi(mask_erode,Point(507,270),Point(2181,1731),mask1);
+			Mat mask;
+			threshold(mask1,mask,0,255,0);
+			imwrite("kept_mask1.png",mask);
 
 	    	if(bool_visD){
 	    		vector<string> sub_str;
@@ -290,9 +288,12 @@ int main(int argc, char** argv){
 	    	}
 
 	    	//-- Getting numerical data
-	    	vector<double> shapes_data = get_shapes(cc,mask);
-	    	Mat hue_data = get_color(adjImage1, mask);
-
+			Mat mask_temp;
+			mask_temp = mask.clone();
+	    	vector<double> shapes_data = get_shapes(cc,mask_temp);
+			mask_temp = mask.clone();
+	    	Mat hue_data = get_color(adjImage1, mask_temp);
+	    	imwrite("kept_mask2.png",mask);
 		    //-- Write shapes to file
 	    	string name_shape= string(argv[3]);
 	    	ofstream shape_file;
@@ -430,7 +431,13 @@ int main(int argc, char** argv){
 					stem_temp = kept_mask_hyp_stem.clone();
 					leaves_temp = kept_mask_hyp_leaves.clone();
 					vector<double> shapes_total = get_shapes(cc_total,total_temp);
+					total_temp = kept_mask_hyp_total.clone();
+					stem_temp = kept_mask_hyp_stem.clone();
+					leaves_temp = kept_mask_hyp_leaves.clone();
 					vector<double> shapes_stem = get_shapes(cc_stem,stem_temp);
+					total_temp = kept_mask_hyp_total.clone();
+					stem_temp = kept_mask_hyp_stem.clone();
+					leaves_temp = kept_mask_hyp_leaves.clone();
 					vector<double> shapes_leaves = get_shapes(cc_leaves,leaves_temp);
 
 					string name_shape= string(argv[3]);
@@ -479,7 +486,13 @@ int main(int argc, char** argv){
 					   	Mat in_image;
 						in_image = imread(line+str+"_0_0.png",IMREAD_GRAYSCALE);
 					   	Mat hyper_data_total = get_gray(in_image, total_temp);
+						total_temp = kept_mask_hyp_total.clone();
+						stem_temp = kept_mask_hyp_stem.clone();
+						leaves_temp = kept_mask_hyp_leaves.clone();
 					   	Mat hyper_data_stem = get_gray(in_image, stem_temp);
+						total_temp = kept_mask_hyp_total.clone();
+						stem_temp = kept_mask_hyp_stem.clone();
+						leaves_temp = kept_mask_hyp_leaves.clone();
 					   	Mat hyper_data_leaves = get_gray(in_image, leaves_temp);
 
 					  	//-- Write total plant histogram
