@@ -243,7 +243,7 @@ int main(int argc, char** argv){
 			Mat inputImage = imread(argv[2]);
 			Mat adjImage1;
 	    	cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
-
+	    	imwrite("adjImage1.png",adjImage1);
 	    	//-- Thresholding b from Lab
 			Mat lab;
 			cvtColor(adjImage1, lab, cv::COLOR_BGR2Lab);
@@ -251,6 +251,7 @@ int main(int argc, char** argv){
 	    	split(lab, split_lab);
 	    	Mat b_thresh;
 	    	inRange(split_lab[2],0,143,b_thresh);
+	    	imwrite("thresh_b.png",b_thresh);
 	    	Mat mask_b =  cv::Scalar::all(255) - b_thresh;
 	    	imwrite("mask_b.png",mask_b);
 
