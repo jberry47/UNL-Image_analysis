@@ -269,10 +269,12 @@ int main(int argc, char** argv){
 	    	dilate(mask_and, mask_dilate, Mat(), Point(-1, -1), 3, 1, 1);
 	    	Mat mask_erode;
 	    	erode(mask_dilate,mask_erode, Mat(), Point(-1, -1), 3, 1, 1);
+			imwrite("before_keeproi.png",mask_erode);
 
 		    //-- ROI selector
 	    	Mat mask;
 	    	vector<Point> cc = keep_roi(mask_erode,Point(507,270),Point(2181,1731),mask);
+			imwrite("after_keeproi.png",mask);
 
 	    	if(bool_visD){
 	    		vector<string> sub_str;
