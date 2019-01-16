@@ -241,7 +241,6 @@ int main(int argc, char** argv){
 		}
 		else{
 			Mat inputImage = imread(argv[2]);
-	    	imwrite("inputImage.png",inputImage);
 			Mat adjImage1 = inputImage.clone();
 	    	//cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
 	    	//-- Thresholding b from Lab
@@ -251,7 +250,6 @@ int main(int argc, char** argv){
 	    	split(lab, split_lab);
 	    	Mat b_thresh;
 	    	inRange(split_lab[2],0,143,b_thresh);
-	    	imwrite("thresh_b.png",b_thresh);
 	    	Mat mask_b =  cv::Scalar::all(255) - b_thresh;
 
 	    	//-- Thresholding s from HSV
@@ -276,7 +274,6 @@ int main(int argc, char** argv){
 	    	vector<Point> cc = keep_roi(mask_erode,Point(507,270),Point(2181,1731),mask1);
 			Mat mask;
 			threshold(mask1,mask,0,255,0);
-			imwrite("kept_mask1.png",mask);
 
 	    	if(bool_visD){
 	    		vector<string> sub_str;
@@ -293,7 +290,6 @@ int main(int argc, char** argv){
 	    	vector<double> shapes_data = get_shapes(cc,mask_temp);
 			mask_temp = mask.clone();
 	    	Mat hue_data = get_color(adjImage1, mask_temp);
-	    	imwrite("kept_mask2.png",mask);
 		    //-- Write shapes to file
 	    	string name_shape= string(argv[3]);
 	    	ofstream shape_file;
