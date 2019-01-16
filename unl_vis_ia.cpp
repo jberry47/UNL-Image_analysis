@@ -252,6 +252,7 @@ int main(int argc, char** argv){
 	    	Mat b_thresh;
 	    	inRange(split_lab[2],0,143,b_thresh);
 	    	Mat mask_b =  cv::Scalar::all(255) - b_thresh;
+	    	imwrite("mask_b.png",mask_b);
 
 	    	//-- Thresholding s from HSV
 			Mat hsv;
@@ -261,6 +262,7 @@ int main(int argc, char** argv){
 	    	Mat s_thresh;
 	    	inRange(split_hsv[1],0,65,s_thresh);
 	    	Mat mask_s =  cv::Scalar::all(255) - s_thresh;
+	    	imwrite("mask_s.png",mask_s);
 
 	    	//-- joining mask_b with mask_s and closing
 	    	Mat mask_and;
@@ -269,7 +271,7 @@ int main(int argc, char** argv){
 	    	dilate(mask_and, mask_dilate, Mat(), Point(-1, -1), 3, 1, 1);
 	    	Mat mask_erode;
 	    	erode(mask_dilate,mask_erode, Mat(), Point(-1, -1), 3, 1, 1);
-			imwrite("before_keeproi.png",mask_erode);
+			imwrite("mask_erode.png",mask_erode);
 
 		    //-- ROI selector
 	    	Mat mask;
