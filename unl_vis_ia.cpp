@@ -242,8 +242,8 @@ int main(int argc, char** argv){
 		else{
 			Mat inputImage = imread(argv[2]);
 	    	imwrite("inputImage.png",inputImage);
-			Mat adjImage1;
-	    	cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
+			Mat adjImage1 = inputImage.clone();
+	    	//cvtColor(inputImage, adjImage1, cv::COLOR_BGRA2BGR);
 	    	imwrite("adjImage1.png",adjImage1);
 	    	//-- Thresholding b from Lab
 			Mat lab;
